@@ -1,0 +1,50 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ===== USER ===== //
+model User {
+  id Int @id @default(autoincrement())
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  name String
+  role USER_ROLE @default(USER)
+  email String @unique
+}
+enum USER_ROLE {
+  USER
+  ADMIN
+}
+
+// ===== ORGANIZATIONS ===== //
+model Organizations {
+  id Int @id @default(autoincrement())
+  title String @unique
+  bio String?
+  owner_user_id Int?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt @default(now())
+}
+
+
+// ===== LICENSES ===== //
+model Licenses {
+  id Int @id @default(autoincrement())
+  organization Organizations @relation(fields: [org_id], references: [id])
+  org_id Int
+  patched_user User? @relation(fields: [patched_user_id], references: [id])
+  patched_user_id Int?
+  role LICENSE_ROLE @default(USER)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt @default(now())
+}
+enum LICENSE_ROLE {
+  USER
+  EDITOR
+  ADMIN
+}

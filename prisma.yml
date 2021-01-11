@@ -1,0 +1,6 @@
+endpoint: http://localhost:4040/draft-nestjs-api/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: typescript-client
+    output: ./generated/prisma-client/
