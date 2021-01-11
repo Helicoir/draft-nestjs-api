@@ -1,16 +1,13 @@
 import { Query, Resolver } from '@nestjs/graphql'
+import { PrismaService } from 'src/prisma/prisma.service'
 import { User } from './user'
 
-const UserTable = [
-  { id: 1, title: 'john', age: 20 },
-  { id: 2, title: 'taro', age: 20 },
-  { id: 3, title: 'smith', age: 20 },
-]
-
-@Resolver('user')
+@Resolver((of) => User)
 export class UserResolver {
+  constructor(private prisma: PrismaService) {}
+  
   @Query((returns) => [User])
-  async User() {
-    return UserTable
+  async users() {
+    return this.prisma.user.findMany()
   }
 }

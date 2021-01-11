@@ -4,10 +4,13 @@
 
 type User {
   id: ID!
-  title: String!
-  age: Float
+  name: String!
+  role: String!
+  email: String!
+  created_at: String!
+  updated_at: String!
 }
 
 type Query {
-  User: [User!]!
+  users: [User!]!
 }
