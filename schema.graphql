@@ -11,6 +11,16 @@ type User {
   updated_at: String!
 }
 
+type Organization {
+  id: ID!
+  title: String!
+  bio: String!
+  owner_user_id: Float!
+  created_at: String!
+  updated_at: String!
+}
+
 type Query {
   users: [User!]!
+  organization: [Organization!]!
 }
